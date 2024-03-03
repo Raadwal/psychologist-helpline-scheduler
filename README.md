@@ -14,17 +14,20 @@ Our goal is to find the best schedule for the entire week. However, the assumpti
 After loading the data, the program proceeds to search for the optimal solution for each day of the week. The algorithm’s stages include:
 
 1. Availability arrays are created for each psychologist. The size of each array is 144, corresponding to the number of blocks that can divide a given day. If a psychologist has the following status in the i-th block:
-- “YES” (TAK), the value at the i-th position in the array is 1.
-- “EVENT” (EWENT), the value at the i-th position is 0.5.
-- Otherwise, the value at the i-th position is -1.
+    - “YES” (TAK), the value at the i-th position in the array is 1.
+    - “EVENT” (EWENT), the value at the i-th position is 0.5.
+    - Otherwise, the value at the i-th position is -1.
 2. Creation of methods used in the fitness function. These methods calculate the fitness value and require availability arrays, which are created for each day. Therefore, these methods need to be updated as the algorithm progresses through subsequent days.
 3. Selection of genetic algorithm parameters:
-- Population size: 200.
-- Chromosome length: 144 (maximum number of blocks in a given day).
-- Number of generations: 250 + 25 * the number of unique psychologists on that day.
-- Gene space (number of possible values a gene can take):
-- Number of solutions chosen as parents in each generation: 20.
-    - A value of 0 indicates that the time block is empty.
-    - A value in the form of a unique psychologist identifier indicates that the psychologist is selected during that time block.
-- Mutation type: adaptive (mutates from 7 genes to 1 gene).
-- Parent selection: steady-state selection.
+    - Population size: 200.
+    - Chromosome length: 144 (maximum number of blocks in a given day).
+    - Number of generations: 250 + 25 * the number of unique psychologists on that day.
+    - Gene space (number of possible values a gene can take):
+    - Number of solutions chosen as parents in each generation: 20.
+        - A value of 0 indicates that the time block is empty.
+        - A value in the form of a unique psychologist identifier indicates that the psychologist is selected during that time block.
+    - Mutation type: adaptive (mutates from 7 genes to 1 gene).
+    - Parent selection: steady-state selection.
+4. Running the genetic algorithm to find an optimal solution for a given day of the week. 
+
+The next step involves calculating the fitness value for the entire week by summing up the F and G fitness values for individual days of the week. The final step is to save the found solution to the “output.txt” file. Before writing to the file, time blocks are sorted by day and time, and then grouped into longer blocks if the same psychologist is assigned to adjacent 10-minute blocks.
